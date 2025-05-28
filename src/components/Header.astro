@@ -1,0 +1,444 @@
+---
+// HeaderOverlay.astro
+export interface Props {
+  brand?: string;
+  links?: Array<{
+    text: string;
+    url: string;
+    external?: boolean;
+  }>;
+  position?: 'left' | 'center' | 'right';
+  brandPosition?: 'left' | 'center';
+}
+
+const { 
+  brand = "Mi Empresa",
+  links = [
+    { text: "Inicio", url: "/" },
+    { text: "Sobre Nosotros", url: "/about" },
+    { text: "Servicios", url: "/services" },
+    { text: "Portfolio", url: "/portfolio" },
+    { text: "Contacto", url: "/contact" }
+  ],
+  position = 'center',
+  brandPosition = 'left'
+} = Astro.props;
+
+const positionClasses = {
+  left: 'left-4',
+  center: 'left-1/2 -translate-x-1/2',
+  right: 'right-4'
+};
+
+const brandPositionClasses = {
+  left: 'justify-start',
+  center: 'justify-center'
+};
+---
+
+<div class={`header-overlay ${positionClasses[position]}`}>
+  <!-- Brand/Logo -->
+  {brand && (
+    <div class={`brand-section ${brandPositionClasses[brandPosition]}`}>
+      <a href="/" class="brand-link">
+       <img src="./teafriendly-sf-full.svg" alt="Logo de TEA Friendly" class="logo" />
+      </a>
+    </div>
+  )}
+
+  <!-- Navigation Links -->
+  <nav class="nav-section">
+    {links.map((link) => (
+      <div class="nav-item" data-tooltip={`Ir a ${link.text}`}>
+        <a 
+          href={link.url} 
+          class="nav-link"
+          target={link.external ? "_blank" : undefined}
+          rel={link.external ? "noopener noreferrer" : undefined}
+          aria-label={link.text}
+        >
+          {link.text}
+        </a>
+      </div>
+    ))}
+  </nav>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="header-tooltip"></div>
+</div>
+
+<style>
+  .header-overlay {
+    position: fixed;
+    top: 1.5rem;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 2rem;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    max-width: calc(100vw - 2rem);
+  }
+
+  .brand-section {
+    display: flex;
+    align-items: center;
+  }
+
+  .brand-link {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+  }
+
+  .brand-link:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
+
+  .nav-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-link:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+  }
+
+  /* Colores específicos para cada enlace */
+  .nav-item:nth-child(1) .nav-link:hover {
+    background: rgba(102, 126, 234, 0.9); /* Azul */
+    color: white;
+  }
+
+  .nav-item:nth-child(2) .nav-link:hover {
+    background: rgba(118, 75, 162, 0.9); /* Púrpura */
+    color: white;
+  }
+
+  .nav-item:nth-child(3) .nav-link:hover {
+    background: rgba(240, 147, 251, 0.9); /* Rosa */
+    color: white;
+  }
+
+  .nav-item:nth-child(4) .nav-link:hover {
+    background: rgba(74, 172, 254, 0.9); /* Azul claro */
+    color: white;
+  }
+
+  .nav-item:nth-child(5) .nav-link:hover {
+    background: rgba(67, 233, 123, 0.9); /* Verde */
+    color: white;
+  }
+
+  /* Tooltip */
+  .tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 10000;
+    left: 50%;
+    top: 80px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .tooltip::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .header-overlay {
+      gap: 1.5rem;
+      padding: 0.875rem 1.5rem;
+    }
+
+    .nav-section {
+      gap: 1rem;
+    }
+
+    .nav-link {
+      padding: 0.625rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .brand-link {
+      font-size: 1.35rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-overlay {
+      gap: 1rem;
+      padding: 0.75rem 1.25rem;
+      top: 1rem;
+      flex-direction: column;
+      border-radius: 20px;
+    }
+
+    .brand-section {
+      width: 100%;
+    }
+
+    .nav-section {
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-link {
+      padding: 0.5rem 0.875rem;
+      font-size: 0.85rem;
+    }
+
+    .brand-link {
+      font-size: 1.25rem;
+    }
+
+    .tooltip {
+      font-size: 12px;
+      padding: 6px 10px;
+      top: 70px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-overlay {
+      left: 0.5rem !important;
+      right: 0.5rem;
+      transform: none !important;
+      max-width: calc(100vw - 1rem);
+    }
+
+    .nav-section {
+      gap: 0.5rem;
+    }
+
+    .nav-link {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  /* Adaptación para modo oscuro */
+  @media (prefers-color-scheme: dark) {
+    .header-overlay {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .brand-link {
+      background: linear-gradient(135deg, #8B9CFE 0%, #9B7FC7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+
+  /* Animación de entrada */
+  .header-overlay {
+    animation: slideDown 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-100%) translateX(-50%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateX(-50%);
+    }
+  }
+
+  /* Ajuste para posición izquierda */
+  .header-overlay.left-4 {
+    animation: slideDownLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideDownLeft {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Ajuste para posición derecha */
+  .header-overlay.right-4 {
+    animation: slideDownRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideDownRight {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Efecto de scroll - header más compacto */
+  .header-overlay.scrolled {
+    padding: 0.5rem 1.5rem;
+    backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .header-overlay.scrolled .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .header-overlay.scrolled .brand-link {
+    font-size: 1.25rem;
+  }
+</style>
+
+<script>
+  // Funcionalidad del tooltip
+  const navItems = document.querySelectorAll('.nav-item');
+  const tooltip = document.getElementById('header-tooltip');
+
+  navItems.forEach(item => {
+    const link = item.querySelector('.nav-link');
+    const tooltipText = item.getAttribute('data-tooltip');
+
+    link.addEventListener('mouseenter', (e) => {
+      tooltip.textContent = tooltipText;
+      tooltip.classList.add('show');
+      
+      // Posicionar el tooltip relativo al item que disparó el hover
+      const rect = item.getBoundingClientRect();
+      const headerRect = item.closest('.header-overlay').getBoundingClientRect();
+      
+      // Posición relativa al contenedor del header
+      const leftPosition = rect.left - headerRect.left + (rect.width / 2);
+      tooltip.style.left = `${leftPosition}px`;
+      tooltip.style.top = '80px';
+    });
+
+    link.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('show');
+    });
+  });
+
+  // Ocultar tooltip cuando se hace scroll
+  window.addEventListener('scroll', () => {
+    tooltip.classList.remove('show');
+  });
+
+  // Efecto de scroll - header más compacto
+  let lastScrollY = window.scrollY;
+  const header = document.querySelector('.header-overlay');
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > 100) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+    
+    lastScrollY = currentScrollY;
+  });
+
+  // Resaltar enlace activo basado en la URL actual
+  function highlightActiveLink() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath || (currentPath === '/' && href === '/')) {
+        link.style.background = 'rgba(255, 255, 255, 0.3)';
+        link.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+        link.style.transform = 'scale(1.05)';
+      }
+    });
+  }
+
+  // Ejecutar al cargar la página
+  document.addEventListener('DOMContentLoaded', highlightActiveLink);
+</script>

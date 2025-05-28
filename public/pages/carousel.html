@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio/Carousel.inledusercontent</title>
+    <link rel="stylesheet" href="./public/css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            overflow-x: hidden;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel-slide active" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Innovación Digital</h1>
+                <p class="slide-description">Descubre el futuro de la tecnología con soluciones que transforman la manera en que vivimos, trabajamos y nos conectamos con el mundo.</p>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Diseño Revolucionario</h1>
+                <p class="slide-description">Experiencias visuales que cautivan y interfaces que definen nuevos estándares en el mundo del diseño digital contemporáneo.</p>
+                <a href="#" class="slide-cta">
+                    Ver portfolio
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Sostenibilidad Global</h1>
+                <p class="slide-description">Construyendo un futuro más verde con tecnologías limpias e iniciativas que protegen nuestro planeta para las próximas generaciones.</p>
+                <a href="#" class="slide-cta">
+                    Únete al cambio
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Conexión Humana</h1>
+                <p class="slide-description">Creando puentes que unen culturas, ideas y sueños a través de plataformas que celebran la diversidad y fomentan la colaboración.</p>
+                <a href="#" class="slide-cta">
+                    Conectar ahora
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <button class="carousel-arrow prev">‹</button>
+        <button class="carousel-arrow next">›</button>
+
+        <div class="carousel-nav">
+            <button class="nav-dot active"></button>
+            <button class="nav-dot"></button>
+            <button class="nav-dot"></button>
+            <button class="nav-dot"></button>
+        </div>
+
+        <div class="progress-bar active"></div>
+    </div>
+
+    <script>
+        class UltraModernCarousel {
+            constructor() {
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.carousel-slide');
+                this.dots = document.querySelectorAll('.nav-dot');
+                this.prevBtn = document.querySelector('.carousel-arrow.prev');
+                this.nextBtn = document.querySelector('.carousel-arrow.next');
+                this.progressBar = document.querySelector('.progress-bar');
+                this.autoPlayInterval = null;
+                this.autoPlayDelay = 5000;
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+                this.startAutoPlay();
+            }
+
+            addEventListeners() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Pausar autoplay en hover
+                document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
+                    this.stopAutoPlay();
+                });
+
+                document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
+                    this.startAutoPlay();
+                });
+
+                // Soporte para teclado
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+
+                // Soporte para gestos táctiles
+                let startX = 0;
+                let endX = 0;
+
+                document.querySelector('.carousel-container').addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+
+                document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    this.handleSwipe();
+                });
+            }
+
+            handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
+                }
+            }
+
+            updateSlides() {
+                this.slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev', 'next');
+                    
+                    if (index === this.currentSlide) {
+                        slide.classList.add('active');
+                    } else if (index < this.currentSlide) {
+                        slide.classList.add('prev');
+                    } else {
+                        slide.classList.add('next');
+                    }
+                });
+
+                this.dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+
+                this.restartProgressBar();
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                this.updateSlides();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                this.updateSlides();
+            }
+
+            goToSlide(index) {
+                this.currentSlide = index;
+                this.updateSlides();
+            }
+
+            startAutoPlay() {
+                this.stopAutoPlay();
+                this.restartProgressBar();
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoPlayDelay);
+            }
+
+            stopAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+                this.progressBar.classList.remove('active');
+            }
+
+            restartProgressBar() {
+                this.progressBar.classList.remove('active');
+                setTimeout(() => {
+                    this.progressBar.classList.add('active');
+                }, 50);
+            }
+        }
+
+        // Inicializar el carrusel cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            new UltraModernCarousel();
+        });
+
+        // Animación de entrada suave
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
