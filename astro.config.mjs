@@ -7,3 +7,4 @@ export default defineConfig({
     base: '/teafriendly/',
 
 });
+// Algo debo cambiar puesto que esto no funciona
