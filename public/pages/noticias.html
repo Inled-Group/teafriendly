@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scroll/inled.usercontent</title>
+ <link rel="stylesheet" href="../css/new.style.css" />
+</head>
+<body>
+    <div class="scroll-container" id="scrollContainer">
+        <section class="section" data-section="1">
+            <div class="section-content">
+    <div class="carousel-container">
+        <div class="carousel-slide active" style="background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Próximamente más noticias</h1>
+                <p class="slide-description">Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Próximamente más noticias</h1>
+                <p class="slide-description">Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Próximamente más noticias</h1>
+                <p class="slide-description">Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <h1 class="slide-title">Próximamente más noticias</h1>
+                <p class="slide-description">Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <button class="carousel-arrow prev">‹</button>
+        <button class="carousel-arrow next">›</button>
+
+        <div class="carousel-nav">
+            <button class="nav-dot active"></button>
+            <button class="nav-dot"></button>
+            <button class="nav-dot"></button>
+            <button class="nav-dot"></button>
+        </div>
+
+        <div class="progress-bar active"></div>
+    </div>
+    </div>
+    </section>
+        <section class="section" data-section="2">
+            <div class="section-content">
+                <h2>Próximamente más noticias</h2>
+                <p>Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <div style="height: 10vh;"></div>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section" data-section="3">
+            <div class="section-content">
+                <h2>Próximamente más noticias</h2>
+                <p>Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <div style="height: 10vh;"></div>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section" data-section="4">
+            <div class="section-content">
+                <h2>Próximamente más noticias</h2>
+                <p>Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <div style="height: 10vh;"></div>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+
+
+        <section class="section" data-section="5">
+            <div class="section-content">
+                <h2>Próximamente más noticias</h2>
+                <p>Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <div style="height: 10vh;"></div>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section" data-section="6">
+            <div class="section-content">
+                <h2>Próximamente más noticias</h2>
+                <p>Un proyecto vivo, un mundo cambiante, una página para descubrirlo todo.</p>
+                <div style="height: 10vh;"></div>
+                <a href="#" class="slide-cta">
+                    Explorar más
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+        
+    </div>
+
+    <!-- Indicador de sección actual -->
+    <div class="scroll-indicator">
+        <div class="dot active" data-target="1"></div>
+        <div class="dot" data-target="2"></div>
+        <div class="dot" data-target="3"></div>
+        <div class="dot" data-target="4"></div>
+        <div class="dot" data-target="5"></div>
+        <div class="dot" data-target="6"></div>
+    </div>
+
+    <script>
+        // Mejorar el scroll snap con JavaScript
+        const scrollContainer = document.getElementById('scrollContainer');
+        const sections = document.querySelectorAll('.section');
+        const dots = document.querySelectorAll('.dot');
+        
+        let currentSection = 0;
+        let isScrolling = false;
+
+        // Actualizar indicador basado en scroll
+        function updateActiveSection() {
+            const scrollTop = scrollContainer.scrollTop;
+            const sectionHeight = window.innerHeight;
+            const newSection = Math.round(scrollTop / sectionHeight);
+            
+            if (newSection !== currentSection) {
+                currentSection = newSection;
+                
+                // Actualizar dots
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSection);
+                });
+            }
+        }
+
+        // Navegación con los dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                const targetSection = sections[index];
+                if (targetSection) {
+                    targetSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+        });
+
+        // Detectar scroll manual
+        scrollContainer.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                updateActiveSection();
+            }
+        });
+
+        // Navegación con teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' && currentSection < sections.length - 1) {
+                e.preventDefault();
+                sections[currentSection + 1].scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            } else if (e.key === 'ArrowUp' && currentSection > 0) {
+                e.preventDefault();
+                sections[currentSection - 1].scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        });
+
+        // Inicializar
+        updateActiveSection();
+
+        // Opcional: Auto-scroll cada X segundos
+        // let autoScrollInterval;
+        // function startAutoScroll() {
+        //     autoScrollInterval = setInterval(() => {
+        //         if (currentSection < sections.length - 1) {
+        //             sections[currentSection + 1].scrollIntoView({ 
+        //                 behavior: 'smooth',
+        //                 block: 'center'
+        //             });
+        //         } else {
+        //             // Volver al inicio
+        //             sections[0].scrollIntoView({ 
+        //                 behavior: 'smooth',
+        //                 block: 'center'
+        //             });
+        //         }
+        //     }, 5000); // 5 segundos
+        // }
+
+        // function stopAutoScroll() {
+        //     clearInterval(autoScrollInterval);
+        // }
+
+        // // Pausar auto-scroll cuando el usuario interactúa
+        // scrollContainer.addEventListener('wheel', stopAutoScroll);
+        // scrollContainer.addEventListener('touchstart', stopAutoScroll);
+    </script>
+     <script>
+        class UltraModernCarousel {
+            constructor() {
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.carousel-slide');
+                this.dots = document.querySelectorAll('.nav-dot');
+                this.prevBtn = document.querySelector('.carousel-arrow.prev');
+                this.nextBtn = document.querySelector('.carousel-arrow.next');
+                this.progressBar = document.querySelector('.progress-bar');
+                this.autoPlayInterval = null;
+                this.autoPlayDelay = 5000;
+
+                this.init();
+            }
+
+            init() {
+                this.addEventListeners();
+                this.startAutoPlay();
+            }
+
+            addEventListeners() {
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // Pausar autoplay en hover
+                document.querySelector('.carousel-container').addEventListener('mouseenter', () => {
+                    this.stopAutoPlay();
+                });
+
+                document.querySelector('.carousel-container').addEventListener('mouseleave', () => {
+                    this.startAutoPlay();
+                });
+
+                // Soporte para teclado
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.prevSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                });
+
+                // Soporte para gestos táctiles
+                let startX = 0;
+                let endX = 0;
+
+                document.querySelector('.carousel-container').addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+
+                document.querySelector('.carousel-container').addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    this.handleSwipe();
+                });
+            }
+
+            handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
+                }
+            }
+
+            updateSlides() {
+                this.slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev', 'next');
+                    
+                    if (index === this.currentSlide) {
+                        slide.classList.add('active');
+                    } else if (index < this.currentSlide) {
+                        slide.classList.add('prev');
+                    } else {
+                        slide.classList.add('next');
+                    }
+                });
+
+                this.dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+
+                this.restartProgressBar();
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                this.updateSlides();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                this.updateSlides();
+            }
+
+            goToSlide(index) {
+                this.currentSlide = index;
+                this.updateSlides();
+            }
+
+            startAutoPlay() {
+                this.stopAutoPlay();
+                this.restartProgressBar();
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.autoPlayDelay);
+            }
+
+            stopAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+                this.progressBar.classList.remove('active');
+            }
+
+            restartProgressBar() {
+                this.progressBar.classList.remove('active');
+                setTimeout(() => {
+                    this.progressBar.classList.add('active');
+                }, 50);
+            }
+        }
+
+        // Inicializar el carrusel cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', () => {
+            new UltraModernCarousel();
+        });
+
+        // Animación de entrada suave
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

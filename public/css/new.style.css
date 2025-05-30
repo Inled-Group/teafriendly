@@ -1,6 +1,8 @@
-  .header-overlay {
+.header-overlay {
     position: fixed;
     top: 1.5rem;
+    left: 50%; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Ajuste para centrar */
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -531,11 +533,13 @@
         .section {
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             scroll-snap-align: center;
             scroll-snap-stop: always;
             position: relative;
+            text-align: center;
         }
 
         /* Estilos para las secciones */
@@ -549,9 +553,12 @@
             color: white;
         }
 
-        .section:nth-child(3) {
+        .section:nth-child(3), .section:nth-child(4) {
             background: linear-gradient(135deg, #ffec89 0%, #ffdf60 100%);
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .section:nth-child(4) {
@@ -568,10 +575,33 @@
             color: white;
         }
 
-        .section-content {
-            text-align: center;
-            max-width: 800px;
-            padding: 2rem;
+html,
+body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Para controlar el scroll con JS */
+}
+
+body {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido del body */
+    align-items: center; /* Centra verticalmente el contenido del body */
+}
+
+.scroll-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll; /* Permite el scroll vertical */
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+        .section-content .container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .section h2 {
@@ -627,3 +657,263 @@
                 scroll-behavior: smooth;
             }
         }
+        .share-widget {
+          position: relative;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(20px);
+          border-radius: 25px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          padding: 2rem;
+          text-align: center;
+          max-width: 450px;
+          width: 100%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .share-title {
+          color: white;
+          font-size: 1.5rem;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          letter-spacing: -0.01em;
+      }
+
+      .share-subtitle {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+          margin-bottom: 2rem;
+          font-weight: 300;
+      }
+
+      .url-preview {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 15px;
+          padding: 1rem;
+          margin-bottom: 2rem;
+          color: rgba(255, 255, 255, 0.9);
+          font-family: monospace;
+          font-size: 0.9rem;
+          word-break: break-all;
+          box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .social-buttons {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1.2rem;
+          margin: 0 auto;
+          flex-wrap: wrap;
+          width: 100%;
+      }
+
+      .social-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 60px;
+          height: 60px;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(15px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 15px;
+          color: white;
+          text-decoration: none;
+          font-size: 1.3rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          position: relative;
+          overflow: hidden;
+          margin: 0.5rem;
+      }
+
+      .social-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+          opacity: 0;
+          transition: opacity 0.3s ease;
+      }
+
+      .social-btn:hover::before {
+          opacity: 1;
+      }
+
+      .social-btn:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+          border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .social-btn:active {
+          transform: translateY(-2px) scale(1.02);
+      }
+
+      /* Colores específicos para cada red social */
+      .twitter:hover {
+          background: #1DA1F2;
+          border-color: #1DA1F2;
+      }
+
+      .facebook:hover {
+          background: #1877F2;
+          border-color: #1877F2;
+      }
+
+      .linkedin:hover {
+          background: #0A66C2;
+          border-color: #0A66C2;
+      }
+
+      .whatsapp:hover {
+          background: #25D366;
+          border-color: #25D366;
+      }
+
+      .telegram:hover {
+          background: #0088CC;
+          border-color: #0088CC;
+      }
+
+      .copy-url-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          width: 100%;
+          padding: 1rem;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          border-radius: 15px;
+          color: white;
+          font-weight: 500;
+          font-size: 0.95rem;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .copy-url-btn:hover {
+          background: rgba(255, 255, 255, 0.25);
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      .tooltip {
+          position: absolute;
+          top: -40px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(0, 0, 0, 0.8);
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 8px;
+          font-size: 0.8rem;
+          white-space: nowrap;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          z-index: 100;
+      }
+
+      .tooltip.show {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(-5px);
+      }
+
+      @keyframes slideUp {
+          from {
+              opacity: 0;
+              transform: translateY(50px) scale(0.9);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+          }
+      }
+
+      @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+      }
+
+      .copied {
+          animation: pulse 0.6s ease;
+          background: rgba(5, 192, 101, 0.3) !important;
+          border-color: #05c065 !important;
+      }
+
+      /* Responsive */
+      @media (max-width: 480px) {
+          .share-widget {
+              padding: 1.5rem;
+              margin: 1rem auto;
+              max-width: 600px;
+              text-align: center;
+          }
+
+          .social-buttons {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              align-items: center;
+              gap: 1rem;
+              margin: 2rem auto;
+              max-width: 400px;
+          }
+
+          .social-btn {
+              width: 50px;
+              height: 50px;
+              font-size: 1.2rem;
+              margin: 0.5rem;
+          }
+
+          .share-title {
+              font-size: 1.3rem;
+          }
+      }
+
+      /* Iconos SVG reales */
+      .social-btn svg {
+          width: 24px;
+          height: 24px;
+          fill: currentColor;
+      }
+
+.footer {
+    background: rgba(0, 0, 0, 0.1); /* Fondo semitransparente */
+    backdrop-filter: blur(15px); /* Efecto de desenfoque */
+    color: #fff;
+    padding: 60px 20px;  /* Increased top and bottom padding */
+    min-height: 500px;   /* Added minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+a {
+  color: white;
+}

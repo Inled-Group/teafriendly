@@ -1,0 +1,17 @@
+---
+import ApoyoComponente from '../components/apoyo.component.astro';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import Social from '../components/social.astro';
+const { title = "Necesitamos tu ayuda | TEA Friendly" } = Astro.props;
+---
+
+<Layout>
+	<Header />
+	<title>{title}</title>
+	<meta name="description" content="Este proyecto generará un impacto positivo en millones de familias españolas pero necesitamos apoyo para llevar a cabo este proyecto">
+	<ApoyoComponente />
+	<Social />
+	<CookieBanner />
+</Layout>

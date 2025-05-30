@@ -1,18 +1,17 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import Expertos from '../components/expertos.astro';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Social from '../components/social.astro';
-const { title = "TEA Friendly" } = Astro.props;
+const { title = "Grupo de expertos | TEA Friendly" } = Astro.props;
 ---
 
 <Layout>
-	<Header></Header>
+	<Header />
 	<title>{title}</title>
-	<meta name="description" content="Certificamos centros educativos que atienden las necesidades de personas con autismo">
-	<Welcome />
+	<meta name="description" content="Tú también puedes formar parte de las personas que construyen TEA Frienly. Únete y asesóranos.">
+	<Expertos />
 	<Social />
-	
 	<CookieBanner />
 </Layout>

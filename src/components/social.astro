@@ -68,6 +68,8 @@ const positionClasses = {
   .social-overlay {
     position: fixed;
     bottom: 1.5rem;
+    left: 50%; /* Asegura que el punto de inicio sea el centro */
+    transform: translateX(-50%); /* Mueve el elemento hacia la izquierda la mitad de su ancho */
     z-index: 9999;
     display: flex;
     flex-direction: row;

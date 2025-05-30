@@ -1,18 +1,17 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import Niveles from '../components/niveles.astro';
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import Social from '../components/social.astro';
-const { title = "TEA Friendly" } = Astro.props;
+const { title = "Sobre TEA Friendly" } = Astro.props;
 ---
 
 <Layout>
-	<Header></Header>
+	<Header />
 	<title>{title}</title>
-	<meta name="description" content="Certificamos centros educativos que atienden las necesidades de personas con autismo">
-	<Welcome />
+	<meta name="description" content="Los niveles TEA Friendly establecen la adaptación del centro a las necesidades del alumnado con autismo">
+	<Niveles />
 	<Social />
-	
 	<CookieBanner />
 </Layout>
